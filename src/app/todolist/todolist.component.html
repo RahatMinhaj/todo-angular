@@ -1,0 +1,108 @@
+<section class="vh-100" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class=" d-flex justify-content-end">
+          <button class="btn btn-outline-primary" (click)="logOut()">Logout</button>
+        </div>
+        <div class="col">
+          <div class="card rounded-3">
+            <div class="card-body p-4">
+
+              <h1 class="text-center bg-info p-3" *ngIf="adminPanel">Admin Panel</h1>
+              <h1 class="text-center bg-info p-3" *ngIf="!adminPanel">User Panel</h1>
+
+              <h2  class="text-center my-4" *ngIf="adminPanel">Create New Todos</h2>
+              <form *ngIf="adminPanel" [formGroup]="todoListForm" (ngSubmit)="createTodo()" class="row d-flex row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" >
+                <div class="col-12">
+                  <div class="form-outline">
+                    <input type="text" id="form1" class="form-control" placeholder="Enter a new task here!" formControlName="todoDetails"/>
+                  </div>
+                </div>
+  
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </form>
+
+              <h1 class="text-center bg-warning p-1">List of Todos</h1>
+  
+              <div class="row mb-2">
+                <mat-form-field class="col">
+                  <mat-label>Search Your Data Here</mat-label>
+                  <input matInput (keyup)="applyFilter($event)">
+                </mat-form-field>
+              
+                <div class="col" *ngIf="adminPanel">
+                  <div class="d-flex align-items-end flex-column col float-end">
+                    <div class="staustext">Change Status:</div>
+                    <select class="form-select apt_table_option statusChange"  #table (change)="onSelect(table.value)">
+                      <option default>Select Option</option>
+                      <option value="pending">Pending</option>
+                      <option value="done">Done</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="mat-elevation-z8 table_wrapper">
+                <table mat-table [dataSource]="datasource" matSort>
+
+                   <!-- Checkbox Column -->
+              <ng-container  matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>Select</th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (change)="tableCheckbox(row.todoID, $event.checked)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+            
+                  <ng-container matColumnDef="todoDetails">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Todo Details:</th>
+                    <td mat-cell *matCellDef="let row">{{row.todoDetails}}</td>
+                  </ng-container>
+            
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Todo Status:</th>
+                    <td mat-cell *matCellDef="let row"><div [ngClass]="{'bg-success': row.status === 'done', 'bg-secondary': row.status === 'pending'}" class="text-white rounded text-center p-2"> {{row.status}}</div> </td>
+                  </ng-container>
+            
+            
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                    <td mat-cell *matCellDef="let row">
+                      <button class="btn" (click)="markAsDone(row.todoID)" title="Mark As Done!"><mat-icon>done</mat-icon></button>
+                      <button *ngIf="adminPanel" class="btn" (click)="delAlert(row.todoID)" title="Delete this Todo!"><mat-icon>delete</mat-icon></button>
+
+
+                      <!-- <div class="d-flex justify-content-center align-items-center"> -->
+                        <!-- <button class="btn btn-success btn-sm me-1" (click)="edit(row, content)"
+                        >Edit</button><br> -->
+                        <!-- <button class="btn btn-info btn-sm me-1" (click)="upTableVal(row)" 
+                        >Confirm</button><br> -->
+            
+                      <!-- <button class="btn btn-danger btn-sm">Delete</button> -->
+                      <!-- </div> -->
+                    </td>
+                  </ng-container>
+            
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+                  <!-- Row shown when there is no matching data. -->
+                  <!-- <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr> -->
+                </table>
+              </div>
+              <mat-paginator [pageSizeOptions]="[10, 20,30, 100]" showFirstLastButtons
+                aria-label="Select page of users"></mat-paginator>
+            
+            
+            
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
