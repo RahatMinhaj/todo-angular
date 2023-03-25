@@ -26,14 +26,19 @@ export class LoginComponent implements OnInit {
     private storage:StorageService,
     private router:Router
   ) {}
+  private usedLoginCeck!:any;
 
   ngOnInit(): void {
+
+    this.usedLoginCeck= this.storage.getData()
+    if(this.usedLoginCeck != null){
+      this.router.navigateByUrl("/todolist");
+    }
     this.loginForm = this.formBuilder.group({
       userName: [''],
       userPass: [''],
     });
   }
-
 
 
   loginCheck() {
@@ -50,7 +55,10 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl("/todolist")
 
         }
-      });
+      },error =>{
+        alert("username and password is not valid")
+      }
+      );
     }
   }
 }
