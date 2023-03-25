@@ -21,13 +21,8 @@ constructor(
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
       if(this.usedLoginCeck == null){
-      alert("You are not authenticate to view this page, Please Login First")
       this.router.navigateByUrl("/login");
     }
-
-    // else{
-    //   this.router.navigateByUrl("/todolist");
-    // }
     
       return true;
   }

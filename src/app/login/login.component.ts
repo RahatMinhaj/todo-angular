@@ -55,6 +55,9 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl("/todolist")
 
         }
+        location.reload();
+
+
       },error =>{
         alert("username and password is not valid")
       }

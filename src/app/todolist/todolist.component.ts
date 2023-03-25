@@ -173,5 +173,6 @@ export class TodolistComponent implements OnInit {
   logOut() {
     this.storage.clearData();
     this.router.navigateByUrl('/login');
+    location.reload();
   }
 }
