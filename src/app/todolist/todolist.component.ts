@@ -8,6 +8,7 @@ import { TodolistService } from '../Services/todolist.service';
 import Swal from 'sweetalert2';
 import { StorageService } from '../Services/storage.service';
 import { Router } from '@angular/router';
+import { map, Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-todolist',
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class TodolistComponent implements OnInit {
   todoListForm!: FormGroup;
-
+  timerSubscription!: Subscription;
   listOfTodos!: TodoList[];
 
   // ==============Table Properties===========
@@ -54,7 +55,6 @@ export class TodolistComponent implements OnInit {
         });
     }
   }
-
   // ==============Table Properties===========
 
   constructor(
@@ -71,9 +71,23 @@ export class TodolistComponent implements OnInit {
       status: [''],
     });
 
-    this.getTodoList();
+    //====================For Live reload:Start ====================
+    // Changes will be auto load after 30 seconds for all the clients
+    this.timerSubscription = timer(0, 30000)
+      .pipe(
+        map(() => {
+          this.getTodoList();
+        })
+      )
+      .subscribe();
+
     this.getRole();
   }
+
+  ngOnDestroy(): void {
+    this.timerSubscription.unsubscribe();
+  }
+  //====================For Live reload:End ====================
 
   TodoStatus = 'pending';
   createTodo() {
@@ -131,7 +145,6 @@ export class TodolistComponent implements OnInit {
   }
 
   markAsDone(id: number) {
-
     Swal.fire({
       title: 'Are you sure to change status!',
       text: 'Have you finished the task?',
@@ -141,7 +154,6 @@ export class TodolistComponent implements OnInit {
       cancelButtonText: 'No',
     }).then((result) => {
       if (result.value) {
-
         this.selectedIDs.splice(0);
         this.selectedIDs.push(id);
         this.todoService
@@ -154,13 +166,6 @@ export class TodolistComponent implements OnInit {
         // Swal.fire('Cancelled', 'Product still in our database.', 'error');
       }
     });
-
-
-
-
-
-
-   
   }
 
   adminPanel = false;

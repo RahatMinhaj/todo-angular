@@ -1,11 +1,10 @@
+.statusChange {
+  width: 200px;
+  padding: 20px, 10;
+}
 
-
-  .statusChange{
-    width: 200px;
-    padding : 20px , 10;
-  }
-
-  .staustext{
-    font-size: large;
-    margin-bottom: 10px;
-  }
+.staustext {
+  font-size: large;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}

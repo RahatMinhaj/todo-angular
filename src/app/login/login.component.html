@@ -1,42 +1,42 @@
 <div class="login-form">
-    <form [formGroup]="loginForm">
-  
-      <div class="div text-center">
-          <div><span class="fw-bold">User Role:</span> user1, userPass</div>
-          <div><span class="fw-bold">Admin Role:</span> Admin, AdminPass</div>
-  
-      </div>
-  
-      <br>
-      <hr>
-      <br>
-      <h2 class="text-center">Please Log in</h2>
-      <br>
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Username"
-          formControlName="userName"
-        />
-      </div>
-      <br>
-      <div class="form-group">
-        <input
-          type="password"
-          class="form-control"
-          placeholder="Password"
-          required="required"
-          formControlName="userPass"
-        />
-      </div>
-      <br>
-      <div class="form-group">
-          
-        <button type="submit" class="btn btn-primary btn-block" (click)="loginCheck()">Log in</button>
-      </div>
-  
-  
-    </form>
-  </div>
-  
+  <form [formGroup]="loginForm">
+    <div class="div text-center">
+      <div><span class="fw-bold">User Role:</span> user1, userPass</div>
+      <div><span class="fw-bold">Admin Role:</span> Admin, AdminPass</div>
+    </div>
+
+    <br />
+    <hr />
+    <br />
+    <h2 class="text-center">Please Log in</h2>
+    <br />
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Username"
+        formControlName="userName"
+      />
+    </div>
+    <br />
+    <div class="form-group">
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Password"
+        required="required"
+        formControlName="userPass"
+      />
+    </div>
+    <br />
+    <div class="form-group">
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        (click)="loginCheck()"
+      >
+        Log in
+      </button>
+    </div>
+  </form>
+</div>

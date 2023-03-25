@@ -11,7 +11,7 @@
               <h1 class="text-center bg-info p-3" *ngIf="adminPanel">Admin Panel</h1>
               <h1 class="text-center bg-info p-3" *ngIf="!adminPanel">User Panel</h1>
 
-              <h2  class="text-center my-4" *ngIf="adminPanel">Create New Todos</h2>
+              <h1 class="text-center my-4 fw-bold" *ngIf="adminPanel">Create New Todos</h1>
               <form *ngIf="adminPanel" [formGroup]="todoListForm" (ngSubmit)="createTodo()" class="row d-flex row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" >
                 <div class="col-12">
                   <div class="form-outline">
@@ -34,7 +34,7 @@
               
                 <div class="col" *ngIf="adminPanel">
                   <div class="d-flex align-items-end flex-column col float-end">
-                    <div class="staustext">Change Status:</div>
+                    <div class="staustext bg-info p-3">Change Status:</div>
                     <select class="form-select apt_table_option statusChange"  #table (change)="onSelect(table.value)">
                       <option default>Select Option</option>
                       <option value="pending">Pending</option>
